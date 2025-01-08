@@ -1,0 +1,26 @@
+/*
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
+  Cross-Origin-Resource-Policy: cross-origin
+  Origin-Agent-Cluster: ?1
+
+/*.css
+  Content-Type: text/css
+
+/*.js
+  Content-Type: application/javascript
+
+/lib/*.module.js
+  Content-Type: application/javascript
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=31536000
+  Cross-Origin-Resource-Policy: cross-origin
+
+/assets/data/*
+  Access-Control-Allow-Origin: *
+  Cross-Origin-Resource-Policy: cross-origin
+
+/*.html
+  Content-Type: text/html
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Embedder-Policy: require-corp
