@@ -19,7 +19,7 @@
         "build-library-windows": "npx rollup -c && (if not exist \".\\build\\demo\\lib\" mkdir .\\build\\demo\\lib) && copy .\\build\\gaussian-splats-3d* .\\build\\demo\\lib\\",
         "build-windows": "npm run build-library-windows && npm run build-demo-windows",
         "watch": "npx npm-watch ",
-        "demo": "node util/server.js -d ./build/demo",
+        "demo": "npx servez --ssl ./build/demo/ --header=Cross-Origin-Opener-Policy:same-origin --header=Cross-Origin-Embedder-Policy:require-corp",
         "fix-styling": "npx stylelint **/*.scss --fix",
         "fix-js": "npx eslint src --fix",
         "lint": "npx eslint 'src/**/*.js' || true",
@@ -64,6 +64,7 @@
         "prettier": "3.0.2",
         "prettier-eslint": "15.0.1",
         "rollup": "3.28.1",
+        "servez": "^2.1.2",
         "url-loader": "4.1.1"
     },
     "peerDependencies": {

@@ -25,10 +25,12 @@ function sleep(ms) {
 }
 
 http
-  .createServer( async function (request, response) {
-
+  .createServer(async function (request, response) {
+    // Set security headers for all responses
     response.setHeader("Cross-Origin-Opener-Policy", "same-origin");
     response.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+    response.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+    response.setHeader("Origin-Agent-Cluster", "?1");
 
     let filePath = baseDirectory + request.url;
 
@@ -36,7 +38,9 @@ http
     let contentType = "text/html";
     switch (extname) {
       case ".js":
-        contentType = "text/javascript";
+        contentType = "application/javascript";
+        // Add CORS for all JavaScript files
+        response.setHeader("Access-Control-Allow-Origin", "*");
         break;
       case ".css":
         contentType = "text/css";
@@ -50,6 +54,17 @@ http
       case ".jpg":
         contentType = "image/jpg";
         break;
+    }
+
+    // Special handling for module files
+    if (filePath.includes('/lib/') && filePath.endsWith('.module.js')) {
+      response.setHeader("Cache-Control", "public, max-age=31536000");
+    }
+
+    // Special handling for data files
+    if (filePath.includes('/assets/data/')) {
+      response.setHeader("Access-Control-Allow-Origin", "*");
+      response.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
     }
 
     const requestTime = performance.now() / 1000;
@@ -97,6 +112,8 @@ http
       if (error) {
         if (error.code == "ENOENT") {
           console.log("HTTP(404) Request for " + filePath + " -> File not found.");
+          response.writeHead(404);
+          response.end("File not found");
         } else {
           console.log("HTTP(500)) Request for " + filePath + " -> Server error.");
           response.writeHead(500);
@@ -105,7 +122,6 @@ http
               error.code +
               " ..\n"
           );
-          response.end();
         }
       } else {
         console.log("HTTP(200) Request for " + filePath);
