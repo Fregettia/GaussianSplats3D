@@ -1,4 +1,12 @@
 /*
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Embedder-Policy: require-corp
+
+/*.css
+  Content-Type: text/css
+
+/*.js
   Content-Type: application/javascript
+
+/*.html
+  Content-Type: text/html
