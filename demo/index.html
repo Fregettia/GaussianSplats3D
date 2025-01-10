@@ -571,7 +571,8 @@
         'halfPrecisionCovariancesOnGPU': false,
         'antialiased': antialiased || false,
         'splatRenderMode': sceneIs2D ? GaussianSplats3D.SplatRenderMode.TwoD : GaussianSplats3D.SplatRenderMode.ThreeD,
-        'sphericalHarmonicsDegree': sphericalHarmonicsDegree
+        'sphericalHarmonicsDegree': sphericalHarmonicsDegree,
+        'sharedMemoryForWorkers': false
       };
       const splatBufferOptions = {
         'splatAlphaRemovalThreshold': alphaRemovalThreshold
