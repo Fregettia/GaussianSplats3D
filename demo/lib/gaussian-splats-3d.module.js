@@ -11608,7 +11608,7 @@ class Viewer {
         // https://web.dev/articles/cross-origin-isolation-guide
         // If enabled, it requires specific CORS headers to be present in the response from the server that is sent when
         // loading the application. More information is available in the README.
-        if (options.sharedMemoryForWorkers === undefined || options.sharedMemoryForWorkers === null) options.sharedMemoryForWorkers = true;
+        if (options.sharedMemoryForWorkers === undefined || options.sharedMemoryForWorkers === null) options.sharedMemoryForWorkers = false;
         this.sharedMemoryForWorkers = options.sharedMemoryForWorkers;
 
         // if 'dynamicScene' is true, it tells the viewer to assume scene elements are not stationary or that the number of splats in the
