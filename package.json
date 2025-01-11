@@ -26,7 +26,8 @@
         "lint": "npx eslint 'src/**/*.js' || true",
         "prettify": "npx prettier --write 'src/**/*.js'",
         "build:css": "mkdir -p ./build/demo/css && tailwindcss -i ./demo/css/styles.css -o ./build/demo/css/styles.css --minify",
-        "watch:css": "tailwindcss -i ./demo/css/styles.css -o ./build/demo/css/styles.css --watch"
+        "watch:css": "tailwindcss -i ./demo/css/styles.css -o ./build/demo/css/styles.css --watch",
+        "vercel-build": "npm install && npm run build"
     },
     "watch": {
         "build-library": {
