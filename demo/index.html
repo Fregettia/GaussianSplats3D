@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +25,7 @@
   <style type="text/tailwindcss">
     @layer components {
       .media-container {
-        @apply relative w-full h-48;
+        @apply relative w-full h-48 sm:h-56 md:h-48 lg:h-56;
       }
 
       .card-image {
@@ -42,6 +42,17 @@
 
       .media-container:hover .card-video {
         @apply opacity-100 scale-100;
+      }
+
+      /* Mobile touch support */
+      @media (hover: none) {
+        .media-container:active .card-image {
+          @apply opacity-0 scale-105;
+        }
+
+        .media-container:active .card-video {
+          @apply opacity-100 scale-100;
+        }
       }
     }
 
@@ -152,12 +163,12 @@
   </script>
 </head>
 
-<body class="bg-apple-gray font-sf-pro">
+<body class="bg-apple-gray font-sf-pro min-h-screen">
   <!-- Navigation -->
   <nav class="bg-[rgba(255,255,255,0.8)] backdrop-blur-xl fixed w-full z-50 border-b border-gray-200">
-    <div class="max-w-[980px] mx-auto px-6 h-12 flex items-center justify-between">
-      <div class="text-xl font-semibold text-apple-text">Newsroom</div>
-      <div class="flex space-x-8 text-sm">
+    <div class="max-w-[980px] mx-auto px-4 sm:px-6 h-14 sm:h-12 flex items-center justify-between">
+      <div class="text-lg sm:text-xl font-semibold text-apple-text">Newsroom</div>
+      <div class="flex space-x-4 sm:space-x-8 text-xs sm:text-sm">
         <a href="#" class="text-apple-text hover:text-apple-link">About</a>
         <a href="#" class="text-apple-text hover:text-apple-link">Documentation</a>
         <a href="#" class="text-apple-text hover:text-apple-link">GitHub</a>
@@ -166,26 +177,26 @@
   </nav>
 
   <!-- Main Content -->
-  <main class="pt-24 pb-16">
-    <div class="max-w-[980px] mx-auto px-6">
+  <main class="pt-20 sm:pt-24 pb-16">
+    <div class="max-w-[980px] mx-auto px-4 sm:px-6">
       <!-- Latest News Section -->
-      <section class="mb-16">
-        <h1 class="text-[40px] font-semibold text-apple-text leading-tight mb-2">
+      <section class="mb-8 sm:mb-16">
+        <h1 class="text-[32px] sm:text-[40px] font-semibold text-apple-text leading-tight mb-2">
           3D Gaussian Splatting with Three.js
         </h1>
-        <div class="text-[21px] text-gray-600 leading-relaxed mb-12">
+        <div class="text-lg sm:text-[21px] text-gray-600 leading-relaxed mb-8 sm:mb-12">
           A web-based implementation bringing real-time 3D scene rendering to browsers
         </div>
       </section>
 
       <!-- Featured Article -->
-      <section class="bg-white rounded-2xl overflow-hidden shadow-sm mb-16">
-        <div class="p-12">
+      <section class="bg-white rounded-2xl overflow-hidden shadow-sm mb-8 sm:mb-16">
+        <div class="p-6 sm:p-12">
           <div class="text-sm text-gray-500 mb-4">TECHNOLOGY</div>
-          <h2 class="text-[32px] font-semibold text-apple-text leading-tight mb-6">
+          <h2 class="text-2xl sm:text-[32px] font-semibold text-apple-text leading-tight mb-4 sm:mb-6">
             Experience 3D Scenes in Your Browser
           </h2>
-          <p class="text-gray-600 text-lg leading-relaxed mb-8">
+          <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8">
             This is a Three.js-based implementation of a renderer for 3D Gaussian Splatting, a groundbreaking technique for generating 3D scenes from 2D images. While the original CUDA-based project requires native execution, this web implementation makes the technology accessible to anyone with a modern browser.
           </p>
           <div class="text-sm text-gray-500">January 2024</div>
@@ -194,8 +205,8 @@
 
       <!-- Featured Demos Grid -->
       <section>
-        <h2 class="text-[32px] font-semibold text-apple-text leading-tight mb-8">Featured Captures</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <h2 class="text-2xl sm:text-[32px] font-semibold text-apple-text leading-tight mb-6 sm:mb-8">Featured Captures</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           <!-- Garden -->
           <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer" onclick="openDemo('garden')">
             <div class="media-container">
@@ -204,8 +215,8 @@
                 <source src="assets/videos/garden.mov" type="video/quicktime">
               </video>
             </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold text-apple-text mb-2">Garden</h3>
+            <div class="p-4 sm:p-6">
+              <h3 class="text-lg sm:text-xl font-semibold text-apple-text mb-2">Garden</h3>
               <p class="text-sm text-gray-500">@VibrantNebula_Luma</p>
             </div>
           </div>
@@ -218,8 +229,8 @@
                 <source src="assets/videos/truck.mov" type="video/quicktime">
               </video>
             </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold text-apple-text mb-2">Truck</h3>
+            <div class="p-4 sm:p-6">
+              <h3 class="text-lg sm:text-xl font-semibold text-apple-text mb-2">Truck</h3>
               <p class="text-sm text-gray-500">@VibrantNebula_Luma</p>
             </div>
           </div>
@@ -232,8 +243,8 @@
                 <source src="assets/videos/stump.mov" type="video/quicktime">
               </video>
             </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold text-apple-text mb-2">Stump</h3>
+            <div class="p-4 sm:p-6">
+              <h3 class="text-lg sm:text-xl font-semibold text-apple-text mb-2">Stump</h3>
               <p class="text-sm text-gray-500">@kaioArt</p>
             </div>
           </div>
@@ -246,8 +257,8 @@
                 <source src="assets/videos/bonsai.mov" type="video/quicktime">
               </video>
             </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold text-apple-text mb-2">Bonsai</h3>
+            <div class="p-4 sm:p-6">
+              <h3 class="text-lg sm:text-xl font-semibold text-apple-text mb-2">Bonsai</h3>
               <p class="text-sm text-gray-500">@Capptis</p>
             </div>
           </div>
@@ -260,8 +271,8 @@
                 <source src="assets/videos/dynamic_scenes.mov" type="video/quicktime">
               </video>
             </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold text-apple-text mb-2">Dynamic Scenes</h3>
+            <div class="p-4 sm:p-6">
+              <h3 class="text-lg sm:text-xl font-semibold text-apple-text mb-2">Dynamic Scenes</h3>
               <p class="text-sm text-gray-500">@FrancLucent</p>
             </div>
           </div>
@@ -274,8 +285,8 @@
                 <source src="assets/videos/vr.mov" type="video/quicktime">
               </video>
             </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold text-apple-text mb-2">VR Scene</h3>
+            <div class="p-4 sm:p-6">
+              <h3 class="text-lg sm:text-xl font-semibold text-apple-text mb-2">VR Scene</h3>
               <p class="text-sm text-gray-500">@WebVRWorld</p>
             </div>
           </div>
@@ -283,33 +294,33 @@
       </section>
 
       <!-- Technical Details -->
-      <section class="mt-16">
+      <section class="mt-8 sm:mt-16">
         <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
-          <div class="p-12">
-            <h2 class="text-[32px] font-semibold text-apple-text leading-tight mb-6">
+          <div class="p-6 sm:p-12">
+            <h2 class="text-2xl sm:text-[32px] font-semibold text-apple-text leading-tight mb-4 sm:mb-6">
               Technical Specifications
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               <div>
-                <h3 class="text-lg font-semibold text-apple-text mb-4">Supported Formats</h3>
+                <h3 class="text-base sm:text-lg font-semibold text-apple-text mb-3 sm:mb-4">Supported Formats</h3>
                 <ul class="space-y-2 text-gray-600">
-                  <li class="flex items-center">
-                    <span class="inline-block px-2 py-1 bg-gray-100 rounded text-sm mr-2">.ply</span>
+                  <li class="flex items-center text-sm sm:text-base">
+                    <span class="inline-block px-2 py-1 bg-gray-100 rounded text-xs sm:text-sm mr-2">.ply</span>
                     Original INRIA project format
                   </li>
-                  <li class="flex items-center">
-                    <span class="inline-block px-2 py-1 bg-gray-100 rounded text-sm mr-2">.ksplat</span>
+                  <li class="flex items-center text-sm sm:text-base">
+                    <span class="inline-block px-2 py-1 bg-gray-100 rounded text-xs sm:text-sm mr-2">.ksplat</span>
                     Custom optimized format
                   </li>
-                  <li class="flex items-center">
-                    <span class="inline-block px-2 py-1 bg-gray-100 rounded text-sm mr-2">.splat</span>
+                  <li class="flex items-center text-sm sm:text-base">
+                    <span class="inline-block px-2 py-1 bg-gray-100 rounded text-xs sm:text-sm mr-2">.splat</span>
                     Standard format
                   </li>
                 </ul>
               </div>
               <div>
-                <h3 class="text-lg font-semibold text-apple-text mb-4">Key Features</h3>
-                <ul class="space-y-2 text-gray-600">
+                <h3 class="text-base sm:text-lg font-semibold text-apple-text mb-3 sm:mb-4">Key Features</h3>
+                <ul class="space-y-2 text-sm sm:text-base text-gray-600">
                   <li>Real-time rendering in browser</li>
                   <li>Interactive camera controls</li>
                   <li>Point cloud visualization</li>
@@ -324,9 +335,9 @@
   </main>
 
   <!-- Footer -->
-  <footer class="border-t border-gray-200 bg-white">
-    <div class="max-w-[980px] mx-auto px-6 py-8">
-      <div class="text-sm text-gray-500">
+  <footer class="border-t border-gray-200 bg-white mt-auto">
+    <div class="max-w-[980px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <div class="text-xs sm:text-sm text-gray-500">
         Copyright © 2024 3D Gaussian Splats. All rights reserved.
       </div>
     </div>
