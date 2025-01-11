@@ -27,7 +27,7 @@
         "prettify": "npx prettier --write 'src/**/*.js'",
         "build:css": "mkdir -p ./build/demo/css && tailwindcss -i ./demo/css/styles.css -o ./build/demo/css/styles.css --minify",
         "watch:css": "tailwindcss -i ./demo/css/styles.css -o ./build/demo/css/styles.css --watch",
-        "vercel-build": "npm install && npm run build"
+        "vercel-build": "npm install && NODE_ENV=production npm run build"
     },
     "watch": {
         "build-library": {
