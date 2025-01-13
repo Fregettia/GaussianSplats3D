@@ -1,59 +1,59 @@
 const scenes = {
-  garden: {
-    id: 'garden',
-    author: '@VibrantNebula_Luma',
-    image: 'assets/images/garden.png',
-    video: 'assets/videos/garden.mov',
-    featured: true,
-    order: 1
-  },
-  truck: {
-    id: 'truck',
-    author: '@VibrantNebula_Luma',
-    image: 'assets/images/truck.png',
-    video: 'assets/videos/truck.mov',
-    featured: true,
-    order: 2
-  },
-  stump: {
-    id: 'stump',
-    author: '@kaioArt',
-    image: 'assets/images/stump.png',
-    video: 'assets/videos/stump.mov',
-    featured: true,
-    order: 3
-  },
-  bonsai: {
-    id: 'bonsai',
-    author: '@Capptis',
-    image: 'assets/images/bonsai.png',
-    video: 'assets/videos/bonsai.mov',
-    featured: true,
-    order: 4
-  },
-  dynamic_scenes: {
-    id: 'dynamic_scenes',
-    author: '@FrancLucent',
-    image: 'assets/images/dynamic_scenes.png',
-    video: 'assets/videos/dynamic_scenes.mov',
-    featured: true,
-    order: 5
-  },
-  vr: {
-    id: 'vr',
-    author: '@WebVRWorld',
-    image: 'assets/images/bonsai.png',
-    video: 'assets/videos/vr.mov',
-    featured: true,
-    order: 6
-  },
+//   garden: {
+//     id: 'garden',
+//     author: '@VibrantNebula_Luma',
+//     image: 'assets/images/garden.png',
+//     video: 'assets/videos/garden.mov',
+//     featured: true,
+//     order: 1
+//   },
+//   truck: {
+//     id: 'truck',
+//     author: '@VibrantNebula_Luma',
+//     image: 'assets/images/truck.png',
+//     video: 'assets/videos/truck.mov',
+//     featured: true,
+//     order: 2
+//   },
+//   stump: {
+//     id: 'stump',
+//     author: '@kaioArt',
+//     image: 'assets/images/stump.png',
+//     video: 'assets/videos/stump.mov',
+//     featured: true,
+//     order: 3
+//   },
+//   bonsai: {
+//     id: 'bonsai',
+//     author: '@Capptis',
+//     image: 'assets/images/bonsai.png',
+//     video: 'assets/videos/bonsai.mov',
+//     featured: true,
+//     order: 4
+//   },
+//   dynamic_scenes: {
+//     id: 'dynamic_scenes',
+//     author: '@FrancLucent',
+//     image: 'assets/images/dynamic_scenes.png',
+//     video: 'assets/videos/dynamic_scenes.mov',
+//     featured: true,
+//     order: 5
+//   },
+//   vr: {
+//     id: 'vr',
+//     author: '@WebVRWorld',
+//     image: 'assets/images/bonsai.png',
+//     video: 'assets/videos/vr.mov',
+//     featured: true,
+//     order: 6
+//   },
   biobay: {
     id: 'biobay',
     author: '@OceanicVisions',
     image: 'assets/images/biobay.png',
     video: 'assets/videos/biobay.mov',
-    featured: false,
-    order: 7
+    featured: true,
+    order: 1
   }
 };
 

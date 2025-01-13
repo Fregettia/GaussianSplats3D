@@ -1,7 +1,7 @@
 const translations = {
   'en-US': {
     nav: {
-      newsroom: 'Newsroom',
+      newsroom: 'Yunji Data',
       about: 'About',
       gallery: 'Gallery',
       github: 'GitHub'
@@ -42,9 +42,9 @@ const translations = {
   },
   'zh-CN': {
     nav: {
-      newsroom: '新闻中心',
+      newsroom: '云集数据',
       about: '关于',
-      gallery: '展示',
+      gallery: '精细实景',
       github: 'GitHub'
     },
     language: {
@@ -68,8 +68,8 @@ const translations = {
       }
     },
     gallery: {
-      title: '三维场景展示',
-      subtitle: '探索我们令人惊叹的三维高斯散射场景集'
+      title: '精细实景展示',
+      subtitle: '精细实景不仅仅是技术，更是艺术，给你一个怦然心动的卓越的视觉世界，让你置身于一个熟悉而且新鲜的虚拟空间，也让你全方位感知真实还原的一砖一瓦、一草一木，一切的一切都是如此的栩栩如生，仿佛触手可及'
     },
     scene: {
       garden: '花园',
