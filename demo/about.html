@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>About | Yunji Data</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'apple-gray': '#f5f5f7',
+            'apple-text': '#1d1d1f',
+            'apple-link': '#06c'
+          },
+          fontFamily: {
+            'sf-pro': ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Text', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <script src="js/translations.js"></script>
+  <script src="js/i18n.js"></script>
+</head>
+
+<body class="bg-apple-gray font-sf-pro min-h-screen">
+  <!-- Navigation -->
+  <nav class="bg-[rgba(255,255,255,0.8)] backdrop-blur-xl fixed w-full z-50 border-b border-gray-200">
+    <div class="max-w-[980px] mx-auto px-4 sm:px-6 h-14 sm:h-12 flex items-center justify-between">
+      <a href="index.html" class="text-lg sm:text-xl font-semibold text-apple-text" data-i18n="nav.newsroom">Yunji Data</a>
+      <div class="flex space-x-4 sm:space-x-8 text-xs sm:text-sm">
+        <a href="about.html" class="text-apple-text hover:text-apple-link" data-i18n="nav.about">About</a>
+        <a href="gallery.html" class="text-apple-text hover:text-apple-link" data-i18n="nav.gallery">Gallery</a>
+        <div class="relative">
+          <button 
+            id="language-toggle"
+            class="text-apple-text hover:text-apple-link flex items-center space-x-1" 
+            aria-haspopup="true" 
+            aria-expanded="false"
+          >
+            <span data-i18n="language.label">Language</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div 
+            id="language-dropdown"
+            class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="language-toggle"
+          >
+            <button 
+              class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" 
+              onclick="i18n.setLanguage('en-US')" 
+              data-i18n="language.en"
+              role="menuitem"
+            >English</button>
+            <button 
+              class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" 
+              onclick="i18n.setLanguage('zh-CN')" 
+              data-i18n="language.zh"
+              role="menuitem"
+            >中文</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="pt-20 sm:pt-24 pb-16">
+    <div class="max-w-[980px] mx-auto px-4 sm:px-6">
+      <!-- Header -->
+      <section class="mb-8 sm:mb-16">
+        <h1 class="text-[32px] sm:text-[40px] font-semibold text-apple-text leading-tight mb-2" data-i18n="about.title">
+          About Yunji Data
+        </h1>
+        <div class="text-lg sm:text-[21px] text-gray-600 leading-relaxed mb-8" data-i18n="about.subtitle">
+          Leading the Future of 3D Scene Capture
+        </div>
+      </section>
+
+      <!-- Mission Section -->
+      <section class="bg-white rounded-2xl overflow-hidden shadow-sm mb-8">
+        <div class="p-6 sm:p-12">
+          <h2 class="text-2xl sm:text-[32px] font-semibold text-apple-text leading-tight mb-4" data-i18n="about.mission.title">
+            Our Mission
+          </h2>
+          <p class="text-base sm:text-lg text-gray-600 leading-relaxed" data-i18n="about.mission.description">
+            To revolutionize the way we capture, visualize, and interact with real-world environments through cutting-edge 3D technology.
+          </p>
+        </div>
+      </section>
+
+      <!-- Technology Section -->
+      <section class="bg-white rounded-2xl overflow-hidden shadow-sm mb-8">
+        <div class="p-6 sm:p-12">
+          <h2 class="text-2xl sm:text-[32px] font-semibold text-apple-text leading-tight mb-4" data-i18n="about.technology.title">
+            Our Technology
+          </h2>
+          <p class="text-base sm:text-lg text-gray-600 leading-relaxed" data-i18n="about.technology.description">
+            We specialize in advanced 3D Gaussian Splatting technology, transforming conventional imagery into immersive, high-fidelity 3D environments that can be experienced directly in your web browser.
+          </p>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section class="bg-white rounded-2xl overflow-hidden shadow-sm mb-8">
+        <div class="p-6 sm:p-12">
+          <h2 class="text-2xl sm:text-[32px] font-semibold text-apple-text leading-tight mb-6" data-i18n="about.features.title">
+            Key Features
+          </h2>
+          <ul class="space-y-4 text-base sm:text-lg text-gray-600">
+            <li class="flex items-center">
+              <svg class="w-5 h-5 text-apple-link mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span data-i18n="about.features.items.0">High-fidelity 3D scene reconstruction</span>
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 text-apple-link mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span data-i18n="about.features.items.1">Real-time web-based rendering</span>
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 text-apple-link mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span data-i18n="about.features.items.2">Cross-platform compatibility</span>
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 text-apple-link mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span data-i18n="about.features.items.3">Optimized performance</span>
+            </li>
+            <li class="flex items-center">
+              <svg class="w-5 h-5 text-apple-link mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+              </svg>
+              <span data-i18n="about.features.items.4">Interactive visualization</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Contact Section -->
+      <section class="bg-white rounded-2xl overflow-hidden shadow-sm">
+        <div class="p-6 sm:p-12">
+          <h2 class="text-2xl sm:text-[32px] font-semibold text-apple-text leading-tight mb-4" data-i18n="about.contact.title">
+            Contact Us
+          </h2>
+          <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-4" data-i18n="about.contact.description">
+            Interested in our technology? We'd love to hear from you.
+          </p>
+          <a href="mailto:contact@yunjidata.com" class="text-apple-link hover:underline" data-i18n="about.contact.email">
+            contact@yunjidata.com
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-200 bg-white mt-auto">
+    <div class="max-w-[980px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <div class="text-xs sm:text-sm text-gray-500">
+        Copyright © 2024 Yunji Data. All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html> 

@@ -3,8 +3,7 @@ const translations = {
     nav: {
       newsroom: 'Yunji Data',
       about: 'About',
-      gallery: 'Gallery',
-      github: 'GitHub'
+      gallery: 'Gallery'
     },
     language: {
       label: 'Language',
@@ -30,6 +29,33 @@ const translations = {
       title: '3D Scene Gallery',
       subtitle: 'Explore our collection of stunning 3D Gaussian Splat scenes'
     },
+    about: {
+      title: 'About Yunji Data',
+      subtitle: 'Leading the Future of 3D Scene Capture',
+      mission: {
+        title: 'Our Mission',
+        description: 'To revolutionize the way we capture, visualize, and interact with real-world environments through cutting-edge 3D technology.'
+      },
+      technology: {
+        title: 'Our Technology',
+        description: 'We specialize in advanced 3D Gaussian Splatting technology, transforming conventional imagery into immersive, high-fidelity 3D environments that can be experienced directly in your web browser.'
+      },
+      features: {
+        title: 'Key Features',
+        items: [
+          'High-fidelity 3D scene reconstruction',
+          'Real-time web-based rendering',
+          'Cross-platform compatibility',
+          'Optimized performance',
+          'Interactive visualization'
+        ]
+      },
+      contact: {
+        title: 'Contact Us',
+        description: 'Interested in our technology? We\'d love to hear from you.',
+        email: 'contact@yunjidata.com'
+      }
+    },
     scene: {
       garden: 'Garden',
       truck: 'Truck',
@@ -44,8 +70,7 @@ const translations = {
     nav: {
       newsroom: '云集数据',
       about: '关于',
-      gallery: '精细实景',
-      github: 'GitHub'
+      gallery: '精细实景'
     },
     language: {
       label: '语言',
@@ -70,6 +95,33 @@ const translations = {
     gallery: {
       title: '精细实景展示',
       subtitle: '精细实景不仅仅是技术，更是艺术，给你一个怦然心动的卓越的视觉世界，让你置身于一个熟悉而且新鲜的虚拟空间，也让你全方位感知真实还原的一砖一瓦、一草一木，一切的一切都是如此的栩栩如生，仿佛触手可及'
+    },
+    about: {
+      title: '关于云集数据',
+      subtitle: '引领三维场景采集的未来',
+      mission: {
+        title: '我们的使命',
+        description: '通过尖端的三维技术，革新我们捕捉、可视化和交互真实环境的方式。'
+      },
+      technology: {
+        title: '我们的技术',
+        description: '我们专注于先进的三维高斯散射技术，将常规图像转化为可以直接在网页浏览器中体验的沉浸式、高保真三维环境。'
+      },
+      features: {
+        title: '核心特点',
+        items: [
+          '高保真三维场景重建',
+          '实时网页渲染',
+          '跨平台兼容',
+          '性能优化',
+          '交互式可视化'
+        ]
+      },
+      contact: {
+        title: '联系我们',
+        description: '对我们的技术感兴趣？我们期待您的联系。',
+        email: 'contact@yunjidata.com'
+      }
     },
     scene: {
       garden: '花园',
