@@ -46,6 +46,14 @@ const scenes = {
     video: 'assets/videos/vr.mov',
     featured: true,
     order: 6
+  },
+  biobay: {
+    id: 'biobay',
+    author: '@OceanicVisions',
+    image: 'assets/images/biobay.png',
+    video: 'assets/videos/biobay.mov',
+    featured: false,
+    order: 7
   }
 };
 

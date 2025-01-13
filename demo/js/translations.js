@@ -36,7 +36,8 @@ const translations = {
       stump: 'Stump',
       bonsai: 'Bonsai',
       dynamic_scenes: 'Dynamic Scenes',
-      vr: 'VR Scene'
+      vr: 'VR Scene',
+      biobay: 'Bio Bay'
     }
   },
   'zh-CN': {
@@ -76,7 +77,8 @@ const translations = {
       stump: '树桩',
       bonsai: '盆景',
       dynamic_scenes: '动态场景',
-      vr: 'VR场景'
+      vr: 'VR场景',
+      biobay: '生物湾'
     }
   }
 }; 
