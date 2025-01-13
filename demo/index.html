@@ -94,6 +94,9 @@
         }
     }
   </script>
+  <script src="js/translations.js"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/i18n.js"></script>
   <script>
     function openDemo(page, params) {
       let url = page + '.html';
@@ -167,11 +170,44 @@
   <!-- Navigation -->
   <nav class="bg-[rgba(255,255,255,0.8)] backdrop-blur-xl fixed w-full z-50 border-b border-gray-200">
     <div class="max-w-[980px] mx-auto px-4 sm:px-6 h-14 sm:h-12 flex items-center justify-between">
-      <div class="text-lg sm:text-xl font-semibold text-apple-text">Newsroom</div>
+      <div class="text-lg sm:text-xl font-semibold text-apple-text" data-i18n="nav.newsroom">Newsroom</div>
       <div class="flex space-x-4 sm:space-x-8 text-xs sm:text-sm">
-        <a href="#" class="text-apple-text hover:text-apple-link">About</a>
-        <a href="#" class="text-apple-text hover:text-apple-link">Documentation</a>
-        <a href="#" class="text-apple-text hover:text-apple-link">GitHub</a>
+        <a href="#" class="text-apple-text hover:text-apple-link" data-i18n="nav.about">About</a>
+        <a href="gallery.html" class="text-apple-text hover:text-apple-link" data-i18n="nav.gallery">Gallery</a>
+        <a href="#" class="text-apple-text hover:text-apple-link" data-i18n="nav.github">GitHub</a>
+        <div class="relative">
+          <button 
+            id="language-toggle"
+            class="text-apple-text hover:text-apple-link flex items-center space-x-1" 
+            aria-haspopup="true" 
+            aria-expanded="false"
+          >
+            <span data-i18n="language.label">Language</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div 
+            id="language-dropdown"
+            class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="language-toggle"
+          >
+            <button 
+              class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" 
+              onclick="i18n.setLanguage('en-US')" 
+              data-i18n="language.en"
+              role="menuitem"
+            >English</button>
+            <button 
+              class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" 
+              onclick="i18n.setLanguage('zh-CN')" 
+              data-i18n="language.zh"
+              role="menuitem"
+            >中文</button>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
@@ -181,10 +217,10 @@
     <div class="max-w-[980px] mx-auto px-4 sm:px-6">
       <!-- Latest News Section -->
       <section class="mb-8 sm:mb-16">
-        <h1 class="text-[32px] sm:text-[40px] font-semibold text-apple-text leading-tight mb-2">
+        <h1 class="text-[32px] sm:text-[40px] font-semibold text-apple-text leading-tight mb-2" data-i18n="home.title">
           3D Gaussian Splatting with Three.js
         </h1>
-        <div class="text-lg sm:text-[21px] text-gray-600 leading-relaxed mb-8 sm:mb-12">
+        <div class="text-lg sm:text-[21px] text-gray-600 leading-relaxed mb-8 sm:mb-12" data-i18n="home.subtitle">
           A web-based implementation bringing real-time 3D scene rendering to browsers
         </div>
       </section>
@@ -192,104 +228,22 @@
       <!-- Featured Article -->
       <section class="bg-white rounded-2xl overflow-hidden shadow-sm mb-8 sm:mb-16">
         <div class="p-6 sm:p-12">
-          <div class="text-sm text-gray-500 mb-4">TECHNOLOGY</div>
-          <h2 class="text-2xl sm:text-[32px] font-semibold text-apple-text leading-tight mb-4 sm:mb-6">
+          <div class="text-sm text-gray-500 mb-4" data-i18n="home.tech.label">TECHNOLOGY</div>
+          <h2 class="text-2xl sm:text-[32px] font-semibold text-apple-text leading-tight mb-4 sm:mb-6" data-i18n="home.tech.title">
             Experience 3D Scenes in Your Browser
           </h2>
-          <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8">
+          <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8" data-i18n="home.tech.description">
             This is a Three.js-based implementation of a renderer for 3D Gaussian Splatting, a groundbreaking technique for generating 3D scenes from 2D images. While the original CUDA-based project requires native execution, this web implementation makes the technology accessible to anyone with a modern browser.
           </p>
-          <div class="text-sm text-gray-500">January 2024</div>
+          <div class="text-sm text-gray-500" data-i18n="home.tech.date">January 2024</div>
         </div>
       </section>
 
       <!-- Featured Demos Grid -->
       <section>
-        <h2 class="text-2xl sm:text-[32px] font-semibold text-apple-text leading-tight mb-6 sm:mb-8">Featured Captures</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          <!-- Garden -->
-          <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer" onclick="openDemo('garden')">
-            <div class="media-container">
-              <img src="assets/images/garden.png" alt="Garden Scene" class="card-image">
-              <video class="card-video" muted loop playsinline preload="auto">
-                <source src="assets/videos/garden.mov" type="video/quicktime">
-              </video>
-            </div>
-            <div class="p-4 sm:p-6">
-              <h3 class="text-lg sm:text-xl font-semibold text-apple-text mb-2">Garden</h3>
-              <p class="text-sm text-gray-500">@VibrantNebula_Luma</p>
-            </div>
-          </div>
-
-          <!-- Truck -->
-          <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer" onclick="openDemo('truck')">
-            <div class="media-container">
-              <img src="assets/images/truck.png" alt="Truck Scene" class="card-image">
-              <video class="card-video" muted loop playsinline preload="auto">
-                <source src="assets/videos/truck.mov" type="video/quicktime">
-              </video>
-            </div>
-            <div class="p-4 sm:p-6">
-              <h3 class="text-lg sm:text-xl font-semibold text-apple-text mb-2">Truck</h3>
-              <p class="text-sm text-gray-500">@VibrantNebula_Luma</p>
-            </div>
-          </div>
-
-          <!-- Stump -->
-          <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer" onclick="openDemo('stump')">
-            <div class="media-container">
-              <img src="assets/images/stump.png" alt="Stump Scene" class="card-image">
-              <video class="card-video" muted loop playsinline preload="auto">
-                <source src="assets/videos/stump.mov" type="video/quicktime">
-              </video>
-            </div>
-            <div class="p-4 sm:p-6">
-              <h3 class="text-lg sm:text-xl font-semibold text-apple-text mb-2">Stump</h3>
-              <p class="text-sm text-gray-500">@kaioArt</p>
-            </div>
-          </div>
-
-          <!-- Bonsai -->
-          <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer" onclick="openDemo('bonsai')">
-            <div class="media-container">
-              <img src="assets/images/bonsai.png" alt="Bonsai Scene" class="card-image">
-              <video class="card-video" muted loop playsinline preload="auto">
-                <source src="assets/videos/bonsai.mov" type="video/quicktime">
-              </video>
-            </div>
-            <div class="p-4 sm:p-6">
-              <h3 class="text-lg sm:text-xl font-semibold text-apple-text mb-2">Bonsai</h3>
-              <p class="text-sm text-gray-500">@Capptis</p>
-            </div>
-          </div>
-
-          <!-- Dynamic Scenes -->
-          <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer" onclick="openDemo('dynamic_scenes')">
-            <div class="media-container">
-              <img src="assets/images/dynamic_scenes.png" alt="Dynamic Scenes" class="card-image">
-              <video class="card-video" muted loop playsinline preload="auto">
-                <source src="assets/videos/dynamic_scenes.mov" type="video/quicktime">
-              </video>
-            </div>
-            <div class="p-4 sm:p-6">
-              <h3 class="text-lg sm:text-xl font-semibold text-apple-text mb-2">Dynamic Scenes</h3>
-              <p class="text-sm text-gray-500">@FrancLucent</p>
-            </div>
-          </div>
-
-          <!-- VR Scene -->
-          <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer" onclick="openDemo('vr')">
-            <div class="media-container">
-              <img src="assets/images/bonsai.png" alt="VR Scene" class="card-image">
-              <video class="card-video" muted loop playsinline preload="auto">
-                <source src="assets/videos/vr.mov" type="video/quicktime">
-              </video>
-            </div>
-            <div class="p-4 sm:p-6">
-              <h3 class="text-lg sm:text-xl font-semibold text-apple-text mb-2">VR Scene</h3>
-              <p class="text-sm text-gray-500">@WebVRWorld</p>
-            </div>
-          </div>
+        <h2 class="text-2xl sm:text-[32px] font-semibold text-apple-text leading-tight mb-6 sm:mb-8" data-i18n="home.featured">Featured Captures</h2>
+        <div id="featured-scenes-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <!-- Scene cards will be dynamically inserted here -->
         </div>
       </section>
 

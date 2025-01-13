@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>3D Gaussian Splats | Gallery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'apple-gray': '#f5f5f7',
+            'apple-text': '#1d1d1f',
+            'apple-link': '#06c'
+          },
+          fontFamily: {
+            'sf-pro': ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Text', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer components {
+      .media-container {
+        @apply relative w-full h-48 sm:h-56;
+      }
+
+      .card-image {
+        @apply w-full h-full object-cover transition-all duration-1000 ease-in-out;
+      }
+
+      .card-video {
+        @apply absolute top-0 left-0 w-full h-full object-cover opacity-0 transition-all duration-1000 ease-in-out scale-[1.02];
+      }
+
+      .media-container:hover .card-image {
+        @apply opacity-0 scale-105;
+      }
+
+      .media-container:hover .card-video {
+        @apply opacity-100 scale-100;
+      }
+
+      /* Mobile touch support */
+      @media (hover: none) {
+        .media-container:active .card-image {
+          @apply opacity-0 scale-105;
+        }
+
+        .media-container:active .card-video {
+          @apply opacity-100 scale-100;
+        }
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(1.02);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: scale(1);
+      }
+      to {
+        opacity: 0;
+        transform: scale(1.05);
+      }
+    }
+
+    .fade-in {
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+
+    .fade-out {
+      animation: fadeOut 1s ease-in-out forwards;
+    }
+  </style>
+  <script>
+    function openDemo(page, params) {
+      let url = page + '.html';
+      if (params && params.length > 0) {
+        let index = 0;
+        for (let param of params) {
+          url += (index === 0 ? "?" : "&");
+          url += param[0] + "=" + param[1];
+          index++;
+        }
+      }
+      window.location = url;
+    }
+  </script>
+  <script type="importmap">
+    {
+        "imports": {
+            "three": "./lib/three.module.js",
+            "gaussian-splats-3d": "./lib/gaussian-splats-3d.module.js"
+        }
+    }
+  </script>
+  <script src="js/translations.js"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/i18n.js"></script>
+</head>
+
+<body class="bg-apple-gray font-sf-pro min-h-screen">
+  <!-- Navigation -->
+  <nav class="bg-[rgba(255,255,255,0.8)] backdrop-blur-xl fixed w-full z-50 border-b border-gray-200">
+    <div class="max-w-[980px] mx-auto px-4 sm:px-6 h-14 sm:h-12 flex items-center justify-between">
+      <a href="index.html" class="text-lg sm:text-xl font-semibold text-apple-text" data-i18n="nav.newsroom">Newsroom</a>
+      <div class="flex space-x-4 sm:space-x-8 text-xs sm:text-sm">
+        <a href="#" class="text-apple-text hover:text-apple-link" data-i18n="nav.about">About</a>
+        <a href="gallery.html" class="text-apple-text hover:text-apple-link" data-i18n="nav.gallery">Gallery</a>
+        <a href="#" class="text-apple-text hover:text-apple-link" data-i18n="nav.github">GitHub</a>
+        <div class="relative">
+          <button 
+            id="language-toggle"
+            class="text-apple-text hover:text-apple-link flex items-center space-x-1" 
+            aria-haspopup="true" 
+            aria-expanded="false"
+          >
+            <span data-i18n="language.label">Language</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div 
+            id="language-dropdown"
+            class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="language-toggle"
+          >
+            <button 
+              class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" 
+              onclick="i18n.setLanguage('en-US')" 
+              data-i18n="language.en"
+              role="menuitem"
+            >English</button>
+            <button 
+              class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" 
+              onclick="i18n.setLanguage('zh-CN')" 
+              data-i18n="language.zh"
+              role="menuitem"
+            >中文</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="pt-20 sm:pt-24 pb-16">
+    <div class="max-w-[980px] mx-auto px-4 sm:px-6">
+      <!-- Gallery Header -->
+      <section class="mb-8 sm:mb-12">
+        <h1 class="text-[32px] sm:text-[40px] font-semibold text-apple-text leading-tight mb-2" data-i18n="gallery.title">
+          3D Scene Gallery
+        </h1>
+        <div class="text-lg sm:text-[21px] text-gray-600 leading-relaxed" data-i18n="gallery.subtitle">
+          Explore our collection of stunning 3D Gaussian Splat scenes
+        </div>
+      </section>
+
+      <!-- Gallery Grid -->
+      <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <!-- Scene cards will be dynamically inserted here -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-200 bg-white mt-auto">
+    <div class="max-w-[980px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <div class="text-xs sm:text-sm text-gray-500">
+        Copyright © 2024 3D Gaussian Splats. All rights reserved.
+      </div>
+    </div>
+  </footer>
+</body>
+</html> 
