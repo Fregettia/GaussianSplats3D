@@ -5,87 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>3D Gaussian Splats | Newsroom</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            'apple-gray': '#f5f5f7',
-            'apple-text': '#1d1d1f',
-            'apple-link': '#06c'
-          },
-          fontFamily: {
-            'sf-pro': ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Text', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
-  <style type="text/tailwindcss">
-    @layer components {
-      .media-container {
-        @apply relative w-full h-48 sm:h-56 md:h-48 lg:h-56;
-      }
-
-      .card-image {
-        @apply w-full h-full object-cover transition-all duration-1000 ease-in-out;
-      }
-
-      .card-video {
-        @apply absolute top-0 left-0 w-full h-full object-cover opacity-0 transition-all duration-1000 ease-in-out scale-[1.02];
-      }
-
-      .media-container:hover .card-image {
-        @apply opacity-0 scale-105;
-      }
-
-      .media-container:hover .card-video {
-        @apply opacity-100 scale-100;
-      }
-
-      /* Mobile touch support */
-      @media (hover: none) {
-        .media-container:active .card-image {
-          @apply opacity-0 scale-105;
-        }
-
-        .media-container:active .card-video {
-          @apply opacity-100 scale-100;
-        }
-      }
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: scale(1.02);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    @keyframes fadeOut {
-      from {
-        opacity: 1;
-        transform: scale(1);
-      }
-      to {
-        opacity: 0;
-        transform: scale(1.05);
-      }
-    }
-
-    .fade-in {
-      animation: fadeIn 1s ease-in-out forwards;
-    }
-
-    .fade-out {
-      animation: fadeOut 1s ease-in-out forwards;
-    }
-  </style>
+  <link href="css/output.css" rel="stylesheet">
   <script type="importmap">
     {
         "imports": {
@@ -119,46 +39,48 @@
         const video = container.querySelector('video');
         const image = container.querySelector('img');
         let fadeTimeout;
+        let playPromise;
+        let isHovering = false;
         
         container.addEventListener('mouseenter', () => {
           if (video) {
+            isHovering = true;
             clearTimeout(fadeTimeout);
             
-            // Start video playback
-            video.currentTime = 0;
-            const playPromise = video.play();
-            
-            if (playPromise !== undefined) {
-              playPromise.then(() => {
-                // Video is ready to play
-                image.classList.add('fade-out');
-                video.classList.add('fade-in');
-              }).catch(error => {
-                console.log("Video playback failed:", error);
-              });
+            // If there's a pending play promise, wait for it
+            if (playPromise) {
+              playPromise
+                .then(() => {
+                  if (isHovering) {
+                    video.currentTime = 0;
+                    playPromise = video.play();
+                  }
+                })
+                .catch(() => {
+                  // Ignore AbortError, it's expected during rapid hover
+                });
+            } else {
+              video.currentTime = 0;
+              playPromise = video.play();
             }
           }
         });
         
         container.addEventListener('mouseleave', () => {
           if (video) {
-            // Remove animation classes
-            image.classList.remove('fade-out');
-            video.classList.remove('fade-in');
-            
-            // Add reverse animations
-            image.classList.add('fade-in');
-            video.classList.add('fade-out');
-            
+            isHovering = false;
             // Set timeout to pause video after fade out
             fadeTimeout = setTimeout(() => {
-              video.pause();
-              video.currentTime = 0;
-              
-              // Clean up animation classes
-              image.classList.remove('fade-in');
-              video.classList.remove('fade-out');
-            }, 1000); // Match the duration of the CSS animation
+              if (!isHovering && video.played.length > 0) {
+                const pausePromise = video.pause();
+                if (pausePromise !== undefined) {
+                  pausePromise.catch(() => {
+                    // Ignore pause errors
+                  });
+                }
+                video.currentTime = 0;
+              }
+            }, 300); // Shorter duration for better responsiveness
           }
         });
       });
