@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Scene Viewer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'apple-gray': '#f5f5f7',
+                        'apple-text': '#1d1d1f',
+                        'apple-link': '#06c'
+                    }
+                }
+            }
+        }
+    </script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "./lib/three.module.js",
+                "@mkkellogg/gaussian-splats-3d": "./lib/gaussian-splats-3d.module.js"
+            }
+        }
+    </script>
+    <script src="js/translations.js"></script>
+    <script src="js/scenes.js"></script>
+    <script src="js/i18n.js"></script>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body class="bg-black">
+    <a href="gallery.html" class="back-button text-apple-text hover:text-apple-link" onclick="event.preventDefault(); window.history.length > 1 ? window.history.back() : window.location.href='gallery.html'">
+        ← <span data-i18n="nav.back">Back</span>
+    </a>
+
+    <div id="canvas-container"></div>
+
+    <script type="module">
+        import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
+        import * as THREE from 'three';
+
+        // Get scene ID from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const sceneId = urlParams.get('scene') || window.location.pathname.split('/').pop().replace('.html', '');
+        
+        // Get scene data
+        const scene = SceneManager.getSceneById(sceneId);
+        if (!scene) {
+            throw new Error('Scene not found');
+        }
+
+        // Update page title
+        document.title = `${i18n.t(`scene.${sceneId}`)} | 3D Scene Viewer`;
+
+        // Initialize viewer with camera config
+        const cameraConfig = {
+            cameraUp: scene.camera?.cameraUp || defaultCameraConfig.cameraUp,
+            initialCameraPosition: scene.camera?.initialCameraPosition || defaultCameraConfig.initialCameraPosition,
+            initialCameraLookAt: scene.camera?.initialCameraLookAt || defaultCameraConfig.initialCameraLookAt
+        };
+
+        const viewer = new GaussianSplats3D.Viewer({
+            ...cameraConfig,
+            sphericalHarmonicsDegree: 0,
+            sharedMemoryForWorkers: false
+        });
+
+        // Load the splat file
+        viewer.addSplatScene(scene.splatPath, {
+            'progressiveLoad': false
+        })
+        .then(() => {
+            viewer.start();
+        })
+        .catch(error => {
+            console.error('Error loading splat:', error);
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            viewer.handleResize();
+        });
+    </script>
+</body>
+</html> 

@@ -3,7 +3,8 @@ const translations = {
     nav: {
       newsroom: 'Yunji Data',
       about: 'About',
-      gallery: 'Gallery'
+      gallery: 'Gallery',
+      back: 'Back'
     },
     language: {
       label: 'Language',
@@ -63,14 +64,35 @@ const translations = {
       bonsai: 'Bonsai',
       dynamic_scenes: 'Dynamic Scenes',
       vr: 'VR Scene',
-      biobay: 'Bio Bay'
+      biobay: 'Bio Bay',
+      town: 'Town',
+      trees: 'Trees'
+    },
+    technical: {
+      title: 'Technical Specifications',
+      formats: {
+        title: 'Supported Formats',
+        ply: 'Original INRIA project format',
+        ksplat: 'Custom optimized format',
+        splat: 'Standard format'
+      },
+      features: {
+        title: 'Key Features',
+        items: [
+          'Real-time rendering in browser',
+          'Interactive camera controls',
+          'Point cloud visualization',
+          'VR compatibility'
+        ]
+      }
     }
   },
   'zh-CN': {
     nav: {
       newsroom: '云集数据',
       about: '关于',
-      gallery: '精细实景'
+      gallery: '精细实景',
+      back: '返回'
     },
     language: {
       label: '语言',
@@ -130,7 +152,27 @@ const translations = {
       bonsai: '盆景',
       dynamic_scenes: '动态场景',
       vr: 'VR场景',
-      biobay: '生物湾'
+      biobay: '生物湾',
+      town: '小镇',
+      trees: '三棵树'
+    },
+    technical: {
+      title: '技术规格',
+      formats: {
+        title: '支持格式',
+        ply: '原始INRIA项目格式',
+        ksplat: '自定义优化格式',
+        splat: '标准格式'
+      },
+      features: {
+        title: '主要特点',
+        items: [
+          '浏览器实时渲染',
+          '交互式相机控制',
+          '点云可视化',
+          'VR兼容'
+        ]
+      }
     }
   }
 }; 

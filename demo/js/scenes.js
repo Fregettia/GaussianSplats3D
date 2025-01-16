@@ -1,3 +1,9 @@
+const defaultCameraConfig = {
+  cameraUp: [0, -1, 0],
+  initialCameraPosition: [0, -1, 0],
+  initialCameraLookAt: [-1, 0, 0]
+};
+
 const scenes = {
 //   garden: {
 //     id: 'garden',
@@ -5,7 +11,13 @@ const scenes = {
 //     image: 'assets/images/garden.png',
 //     video: 'assets/videos/garden.mov',
 //     featured: true,
-//     order: 1
+//     order: 1,
+//     splatPath: 'assets/data/garden/garden.splat',
+//     camera: {
+//       cameraUp: [0, 1, 0],
+//       initialCameraPosition: [1, 1, 1],
+//       initialCameraLookAt: [0, 0, 0]
+//     }
 //   },
 //   truck: {
 //     id: 'truck',
@@ -13,7 +25,11 @@ const scenes = {
 //     image: 'assets/images/truck.png',
 //     video: 'assets/videos/truck.mov',
 //     featured: true,
-//     order: 2
+//     order: 2,
+//     splatPath: 'assets/data/truck/truck.ply',
+//     camera: {
+//       initialCameraPosition: [2, 0, 2]
+//     }
 //   },
 //   stump: {
 //     id: 'stump',
@@ -21,7 +37,8 @@ const scenes = {
 //     image: 'assets/images/stump.png',
 //     video: 'assets/videos/stump.mov',
 //     featured: true,
-//     order: 3
+//     order: 3,
+//     splatPath: 'assets/data/stump/stump.ksplat'
 //   },
 //   bonsai: {
 //     id: 'bonsai',
@@ -49,11 +66,47 @@ const scenes = {
 //   },
   biobay: {
     id: 'biobay',
-    author: '@OceanicVisions',
+    author: '@YiXin',
     image: 'assets/images/biobay.png',
     video: 'assets/videos/biobay.mov',
     featured: true,
-    order: 1
+    order: 1,
+    splatPath: 'assets/data/biobay/biobay.splat',
+    camera: {
+      cameraUp: [0, -1, 0],
+      initialCameraPosition: [-130, -70, -105],
+      initialCameraLookAt: [-1, 0, 0]
+    }
+  },
+  //town
+  town: {
+    id: 'town',
+    author: '@YiXin',
+    image: 'assets/images/town.png',
+    video: 'assets/videos/town.mov',
+    featured: true,
+    order: 2,
+    splatPath: 'assets/data/town.splat',
+    camera: {
+      initialCameraPosition: [9, 100, 100],
+      initialCameraLookAt: [0, 0, 0],
+      cameraUp : [ 0,0,1]
+    }
+  },
+  //trees
+  trees: {
+    id: 'trees',
+    author: '@YiXin',
+    image: 'assets/images/trees.png',
+    video: 'assets/videos/trees.mov',
+    featured: true,
+    order: 3,
+    splatPath: 'assets/data/trees.ksplat',
+    camera: {
+      initialCameraPosition: [0.5, -0.5, 0.5],
+      initialCameraLookAt: [0, 0, 0],
+      cameraUp : [ 0, -1,0]
+    }
   }
 };
 
@@ -75,7 +128,7 @@ const SceneManager = {
 
   renderSceneCard(scene) {
     return `
-      <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer" onclick="openDemo('${scene.id}')">
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer" onclick="window.open('scene.html?scene=${scene.id}', '_blank')">
         <div class="media-container">
           <img src="${scene.image}" alt="${scene.id} Scene" class="card-image">
           <video class="card-video" muted loop playsinline preload="auto">

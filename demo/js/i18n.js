@@ -1,6 +1,6 @@
 class I18n {
   constructor() {
-    this.currentLang = localStorage.getItem('lang') || 'en-US';
+    this.currentLang = localStorage.getItem('lang') || 'zh-CN';
     this.translations = translations;
     this.isDropdownOpen = false;
     this.setupLanguageToggle();
