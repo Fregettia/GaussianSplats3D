@@ -54,7 +54,7 @@ const translations = {
       contact: {
         title: 'Contact Us',
         description: 'Interested in our technology? We\'d love to hear from you.',
-        email: 'contact@yunjidata.com'
+        email: 'szyunjidata@gmail.com'
       }
     },
     scene: {
@@ -142,7 +142,7 @@ const translations = {
       contact: {
         title: '联系我们',
         description: '对我们的技术感兴趣？我们期待您的联系。',
-        email: 'contact@yunjidata.com'
+        email: 'szyunjidata@gmail.com'
       }
     },
     scene: {
