@@ -35,6 +35,52 @@
             background: rgba(255, 255, 255, 0.9);
             transform: translateY(-1px);
         }
+        .info-card {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            width: 400px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .info-card.collapsed {
+            transform: translateY(calc(100% - 40px));
+        }
+        .info-card-header {
+            padding: 10px 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .info-card-content {
+            padding: 18px;
+            font-size: 16px;
+        }
+        .info-card-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 22px;
+        }
+        .info-card-date {
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+        .info-card-description {
+            line-height: 1.6;
+        }
+        .toggle-icon {
+            transition: transform 0.3s ease;
+        }
+        .collapsed .toggle-icon {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 <body class="bg-black">
@@ -43,6 +89,20 @@
     </a>
 
     <div id="canvas-container"></div>
+
+    <div class="info-card">
+        <div class="info-card-header" onclick="toggleInfoCard()">
+            <span class="text-apple-text" data-i18n="scene.info">Scene Info</span>
+            <svg class="toggle-icon w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+            </svg>
+        </div>
+        <div class="info-card-content">
+            <div class="info-card-title" id="scene-title"></div>
+            <div class="info-card-date" id="scene-date">January 2024</div>
+            <div class="info-card-description" id="scene-description"></div>
+        </div>
+    </div>
 
     <script type="module">
         import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
@@ -58,8 +118,23 @@
             throw new Error('Scene not found');
         }
 
-        // Update page title
+        // Update page title and info card
         document.title = `${i18n.t(`scene.${sceneId}`)} | 3D Scene Viewer`;
+        
+        // Update info card content
+        const sceneTitle = i18n.t(`scene.${sceneId}`);
+        const sceneDescription = i18n.t(`scene.descriptions.${sceneId}`);
+        
+        document.getElementById('scene-title').textContent = sceneTitle;
+        
+        // Show/hide description based on availability
+        const descriptionElement = document.getElementById('scene-description');
+        if (sceneDescription && sceneDescription !== `scene.descriptions.${sceneId}`) {
+            descriptionElement.textContent = sceneDescription;
+            descriptionElement.style.display = 'block';
+        } else {
+            descriptionElement.style.display = 'none';
+        }
 
         // Initialize viewer with camera config
         const cameraConfig = {
@@ -72,6 +147,18 @@
             ...cameraConfig,
             sphericalHarmonicsDegree: 0,
             sharedMemoryForWorkers: false
+        });
+
+        // Get camera bounds from scene config or default
+        const bounds = scene.camera?.cameraBounds || defaultCameraConfig.cameraBounds;
+        const minBounds = new THREE.Vector3(bounds.minX, bounds.minY, bounds.minZ);
+        const maxBounds = new THREE.Vector3(bounds.maxX, bounds.maxY, bounds.maxZ);
+
+        viewer.controls.addEventListener('change', () => {
+            const position = viewer.camera.position;
+            position.x = Math.max(minBounds.x, Math.min(maxBounds.x, position.x));
+            position.y = Math.max(minBounds.y, Math.min(maxBounds.y, position.y));
+            position.z = Math.max(minBounds.z, Math.min(maxBounds.z, position.z));
         });
 
         // Load the splat file
@@ -89,6 +176,12 @@
         window.addEventListener('resize', () => {
             viewer.handleResize();
         });
+    </script>
+    <script>
+        function toggleInfoCard() {
+            const card = document.querySelector('.info-card');
+            card.classList.toggle('collapsed');
+        }
     </script>
 </body>
 </html> 

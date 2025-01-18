@@ -58,6 +58,7 @@ const translations = {
       }
     },
     scene: {
+      info: 'Scene Information',
       garden: 'Garden',
       truck: 'Truck',
       stump: 'Stump',
@@ -66,14 +67,20 @@ const translations = {
       vr: 'VR Scene',
       biobay: 'Bio Bay',
       town: 'Town',
-      trees: 'Trees'
+      trees: 'Trees',
+      statue1: 'Equestrian Statue of Louis XIV',
+      statue2: 'Equestrian Statue of Charles V',
+      statue3: 'Bronze Chariot Statue',
+      descriptions: {
+        statue2: 'This statue pays tribute to Charles V, reflecting the 19th century\'s deep interest in commemorative sculptures of historical figures. Cast in bronze with precise details for long-term preservation, it highlights Charles V\'s enduring legacy. The dynamic pose of the emperor and horse conveys power and majesty, with meticulous full-body detailing that achieves remarkable realism.',
+        statue3: 'The Bronze Chariot is one of the leading carriages in the ceremonial procession, composed of the chariot, horse, parasol, and attendant. The chariot features curved front shafts with crossbars and yokes on tracks. The two wheels have heavy hubs, each with twelve spokes. The rectangular passenger compartment has a sloped railing in front and is open at the back. A parasol pole is mounted in the middle, supporting a circular canopy. The attendant, wearing a turned-brim hat and crossed-collar robe, sits beside the parasol pole with arms bent at the chest in a driving posture. The horse stands gracefully before the chariot.'
+      }
     },
     technical: {
       title: 'Technical Specifications',
       formats: {
         title: 'Supported Formats',
         ply: 'Original INRIA project format',
-        ksplat: 'Custom optimized format',
         splat: 'Standard format'
       },
       features: {
@@ -110,7 +117,7 @@ const translations = {
       tech: {
         label: '技术',
         title: '在浏览器中体验三维场景',
-        description: '这是一个基于 Three.js 的三维高斯散射渲染器实现，采用突破性的技术将二维图像转换为三维场景。虽然原始的基于 CUDA 的项目需要本地执行，但这个网页实现使得任何使用现代浏览器的人都能访问这项技术。',
+        description: '这是一个基于 Three.js 的三维高斯散射渲染器实现，采用突破性的技术将二维图像转换为三维场景。',
         date: '2024年1月'
       }
     },
@@ -146,6 +153,7 @@ const translations = {
       }
     },
     scene: {
+      info: '场景信息',
       garden: '花园',
       truck: '卡车',
       stump: '树桩',
@@ -154,14 +162,20 @@ const translations = {
       vr: 'VR场景',
       biobay: '生物湾',
       town: '小镇',
-      trees: '三棵树'
+      trees: '三棵树',
+      statue1: '卢多维克骑马雕像',
+      statue2: '查理五世骑马雕像',
+      statue3: '铜轺车雕像',
+      descriptions: {
+        statue2: '这座雕像是向查理五世致敬，反映了19世纪对历史人物纪念雕像的浓厚兴趣。青铜铸造，细节精准，长久保存，凸显了查理五世不朽的遗产。皇帝与马匹的动态姿态传递出权力与威严，全身刻画细致极具写实性。',
+        statue3: '铜轺车是出行仪仗队伍中的前导车之一，由车、马、伞盖、御奴组成。车双辕前曲，连衡带轭（è）有轨。两轮重毂（gū），各有辐条十二支。横长方形舆，舆前有坡式护栏，后无栏。轼中部装伞柄，上承圆形伞盖。御奴头戴翻边帽，着交领服，坐于伞柄一侧，双臂屈于胸前作执辔（pèi）驾驭状。马身姿矫健，立于车前。'
+      }
     },
     technical: {
       title: '技术规格',
       formats: {
         title: '支持格式',
         ply: '原始INRIA项目格式',
-        ksplat: '自定义优化格式',
         splat: '标准格式'
       },
       features: {

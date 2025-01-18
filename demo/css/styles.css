@@ -8,30 +8,13 @@
   }
 
   .card-image {
-    @apply w-full h-full object-cover transition-all duration-1000 ease-in-out;
+    @apply w-full h-full object-cover absolute top-0 left-0;
+    transition: opacity 0.2s ease-in-out;
   }
 
   .card-video {
-    @apply absolute top-0 left-0 w-full h-full object-cover opacity-0 transition-all duration-1000 ease-in-out scale-[1.02];
-  }
-
-  .media-container:hover .card-image {
-    @apply opacity-0 scale-105;
-  }
-
-  .media-container:hover .card-video {
-    @apply opacity-100 scale-100;
-  }
-
-  /* Mobile touch support */
-  @media (hover: none) {
-    .media-container:active .card-image {
-      @apply opacity-0 scale-105;
-    }
-
-    .media-container:active .card-video {
-      @apply opacity-100 scale-100;
-    }
+    @apply absolute top-0 left-0 w-full h-full object-cover opacity-0;
+    transition: opacity 0.2s ease-in-out;
   }
 }
 

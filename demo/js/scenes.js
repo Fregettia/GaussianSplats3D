@@ -1,7 +1,12 @@
 const defaultCameraConfig = {
   cameraUp: [0, -1, 0],
-  initialCameraPosition: [0, -1, 0],
-  initialCameraLookAt: [-1, 0, 0]
+  initialCameraPosition: [5, 50, 25],
+  initialCameraLookAt: [0, 0, 0],
+  cameraBounds: {
+    minX: 0, maxX: 10,
+    minY: 0, maxY: 100,
+    minZ: 0, maxZ: 50
+  }
 };
 
 const scenes = {
@@ -75,7 +80,12 @@ const scenes = {
     camera: {
       cameraUp: [0, -1, 0],
       initialCameraPosition: [-130, -70, -105],
-      initialCameraLookAt: [-1, 0, 0]
+      initialCameraLookAt: [40, 20, -10],
+      cameraBounds: {
+        minX: -200, maxX: 200,
+        minY: -300, maxY: 0,
+        minZ: -200, maxZ: 200
+      }
     }
   },
   //town
@@ -90,7 +100,12 @@ const scenes = {
     camera: {
       initialCameraPosition: [9, 100, 100],
       initialCameraLookAt: [0, 0, 0],
-      cameraUp : [ 0,0,1]
+      cameraUp : [ 0,0,1],
+      cameraBounds: {
+        minX: 0, maxX: 20,
+        minY: 0, maxY: 200,
+        minZ: 0, maxZ: 200
+      }
     }
   },
   //trees
@@ -105,9 +120,72 @@ const scenes = {
     camera: {
       initialCameraPosition: [0.5, -0.5, 0.5],
       initialCameraLookAt: [0, 0, 0],
-      cameraUp : [ 0, -1,0]
+      cameraUp : [ 0, -1,0],
+      cameraBounds: {
+        minX: -2, maxX: 2,
+        minY: -2, maxY: 2,
+        minZ: -2, maxZ: 2
+      }
     }
-  }
+  },
+  //statue1
+  statue1: {
+    id: 'statue1',
+    author: '@YiXin',
+    image: 'assets/images/statue1.png',
+    video: 'assets/videos/statue1.mov',
+    featured: false,
+    order: 4,
+    splatPath: 'assets/data/statue1.splat',
+    camera: {
+      initialCameraPosition: [3.76554, -7.01168, -7.74641],
+      initialCameraLookAt: [0.27373, -2.61047, -0.16645],
+      cameraUp : [ 0.00000, -1.00000, 0.00000],
+      cameraBounds: {
+        minX: -10, maxX: 10,
+        minY: -30, maxY: 0,
+        minZ: -10, maxZ: 10
+      }
+    }
+  },
+  statue2: {
+    id: 'statue2',
+    author: '@YiXin',
+    image: 'assets/images/statue2.png',
+    video: 'assets/videos/statue2.mov',
+    featured: false,
+    order: 5,
+    splatPath: 'assets/data/statue2.splat',
+    camera: {
+      initialCameraPosition: [10.91659, -12.10261, 13.39398],
+      initialCameraLookAt: [-0.46246, -2.24977, -1.86982],
+      cameraUp : [ 0.00000, -1.00000, 0.00000],
+      cameraBounds: {
+        minX: -30, maxX: 30,
+        minY: -60, maxY: 0,
+        minZ: -30, maxZ: 30
+      }
+    }
+  },
+  statue3: {
+    id: 'statue3',
+    author: '@YiXin',
+    image: 'assets/images/statue3.png',
+    video: 'assets/videos/statue3.mov',
+    featured: false,
+    order: 6,
+    splatPath: 'assets/data/statue3.splat',
+    camera: {
+      initialCameraPosition: [9.29481, -8.13224, -5.60735],
+      initialCameraLookAt: [-0.48946, -1.28182, 2.11262],
+      cameraUp : [ 0.00000, -1.00000, 0.00000],
+      cameraBounds: {
+        minX: -30, maxX: 30,
+        minY: -60, maxY: 0,
+        minZ: -30, maxZ: 30
+      }
+    }
+  },
 };
 
 // Helper functions for scene management
@@ -149,47 +227,82 @@ const SceneManager = {
     mediaContainers.forEach(container => {
       const video = container.querySelector('video');
       const image = container.querySelector('img');
-      let fadeTimeout;
+      let isHovering = false;
+      let currentPlayPromise = null;
+      
+      if (video) {
+        // Ensure video is muted and preloaded
+        video.muted = true;
+        video.preload = "auto";
+        // Load the video initially
+        video.load();
+      }
       
       container.addEventListener('mouseenter', () => {
-        if (video) {
-          clearTimeout(fadeTimeout);
-          
-          // Start video playback
-          video.currentTime = 0;
-          const playPromise = video.play();
-          
-          if (playPromise !== undefined) {
-            playPromise.then(() => {
-              // Video is ready to play
-              image.classList.add('fade-out');
-              video.classList.add('fade-in');
-            }).catch(error => {
-              console.log("Video playback failed:", error);
+        if (!video) return;
+        isHovering = true;
+        
+        // Show video and hide image immediately
+        video.style.opacity = '1';
+        image.style.opacity = '0';
+        
+        // If there's an existing play promise, wait for it to resolve/reject
+        if (currentPlayPromise) {
+          currentPlayPromise
+            .then(() => {
+              // Previous play completed, start new playback
+              startPlayback();
+            })
+            .catch(() => {
+              // Previous play failed, try again
+              startPlayback();
             });
+        } else {
+          startPlayback();
+        }
+        
+        function startPlayback() {
+          if (!isHovering) return;
+          
+          video.currentTime = 0;
+          currentPlayPromise = video.play();
+          
+          if (currentPlayPromise !== undefined) {
+            currentPlayPromise
+              .catch(error => {
+                if (error.name === "NotAllowedError") {
+                  // Auto-play was prevented, show paused state
+                  video.style.opacity = '0';
+                  image.style.opacity = '1';
+                }
+              });
           }
         }
       });
       
       container.addEventListener('mouseleave', () => {
-        if (video) {
-          // Remove animation classes
-          image.classList.remove('fade-out');
-          video.classList.remove('fade-in');
-          
-          // Add reverse animations
-          image.classList.add('fade-in');
-          video.classList.add('fade-out');
-          
-          // Set timeout to pause video after fade out
-          fadeTimeout = setTimeout(() => {
-            video.pause();
-            video.currentTime = 0;
-            
-            // Clean up animation classes
-            image.classList.remove('fade-in');
-            video.classList.remove('fade-out');
-          }, 1000); // Match the duration of the CSS animation
+        if (!video) return;
+        isHovering = false;
+        
+        // Show image and hide video immediately
+        video.style.opacity = '0';
+        image.style.opacity = '1';
+        
+        // If there's a current play promise, wait for it before pausing
+        if (currentPlayPromise !== undefined) {
+          currentPlayPromise
+            .then(() => {
+              if (!isHovering) {
+                video.pause();
+                video.currentTime = 0;
+              }
+            })
+            .catch(() => {
+              // Play was already interrupted, no need to pause
+            });
+        } else {
+          video.pause();
+          video.currentTime = 0;
         }
       });
     });
