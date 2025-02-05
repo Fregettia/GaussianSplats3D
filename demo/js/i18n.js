@@ -12,6 +12,17 @@ class I18n {
     this.updatePageContent();
     this.updateAriaLabels();
     this.toggleDropdown(); // Close dropdown after selection
+
+    // 重新渲染场景卡片
+    const featuredGrid = document.getElementById('featured-scenes-grid');
+    const galleryGrid = document.getElementById('gallery-grid');
+    
+    if (featuredGrid) {
+      SceneManager.renderSceneGrid('featured-scenes-grid');
+    }
+    if (galleryGrid) {
+      SceneManager.renderSceneGrid('gallery-grid');
+    }
   }
 
   t(key) {
@@ -66,10 +77,10 @@ class I18n {
       const galleryGrid = document.getElementById('gallery-grid');
       
       if (featuredGrid) {
-        SceneManager.renderSceneGrid('featured-scenes-grid', true);
+        SceneManager.renderSceneGrid('featured-scenes-grid');
       }
       if (galleryGrid) {
-        SceneManager.renderSceneGrid('gallery-grid', false);
+        SceneManager.renderSceneGrid('gallery-grid');
       }
     });
   }
@@ -88,11 +99,11 @@ class I18n {
   updateAriaLabels() {
     const toggleButton = document.getElementById('language-toggle');
     if (toggleButton) {
-      toggleButton.setAttribute('aria-label', `${this.t('aria.current')}${this.t(`language.${this.currentLang === 'en-US' ? 'en' : 'zh'}`)}`)
+      toggleButton.setAttribute('aria-label', `${this.t('aria.current')}${this.t(`language.${this.currentLang === 'en-US' ? 'en' : 'zh'}`)}`);
     }
   }
 }
 
 // Initialize i18n
 const i18n = new I18n();
-document.addEventListener('DOMContentLoaded', () => i18n.updatePageContent()); 
+document.addEventListener('DOMContentLoaded', () => i18n.updatePageContent());

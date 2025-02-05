@@ -77,6 +77,7 @@ const scenes = {
     featured: true,
     order: 1,
     splatPath: 'assets/data/biobay/biobay.splat',
+    tags: ['自然', '水景', '夜景'],
     camera: {
       cameraUp: [0, -1, 0],
       initialCameraPosition: [-130, -70, -105],
@@ -88,7 +89,6 @@ const scenes = {
       }
     }
   },
-  //town
   town: {
     id: 'town',
     author: '@YiXin',
@@ -97,6 +97,7 @@ const scenes = {
     featured: true,
     order: 2,
     splatPath: 'assets/data/town.splat',
+    tags: ['建筑', '城市', '户外'],
     camera: {
       initialCameraPosition: [9, 100, 100],
       initialCameraLookAt: [0, 0, 0],
@@ -108,7 +109,6 @@ const scenes = {
       }
     }
   },
-  //trees
   trees: {
     id: 'trees',
     author: '@YiXin',
@@ -117,6 +117,7 @@ const scenes = {
     featured: true,
     order: 3,
     splatPath: 'assets/data/trees.ksplat',
+    tags: ['自然', '植物', '户外'],
     camera: {
       initialCameraPosition: [0.5, -0.5, 0.5],
       initialCameraLookAt: [0, 0, 0],
@@ -128,7 +129,6 @@ const scenes = {
       }
     }
   },
-  //statue1
   statue1: {
     id: 'statue1',
     author: '@YiXin',
@@ -137,6 +137,7 @@ const scenes = {
     featured: false,
     order: 4,
     splatPath: 'assets/data/statue1.splat',
+    tags: ['艺术', '雕塑', '室内'],
     camera: {
       initialCameraPosition: [3.76554, -7.01168, -7.74641],
       initialCameraLookAt: [0.27373, -2.61047, -0.16645],
@@ -156,6 +157,7 @@ const scenes = {
     featured: false,
     order: 5,
     splatPath: 'assets/data/statue2.splat',
+    tags: ['艺术', '雕塑', '室内'],
     camera: {
       initialCameraPosition: [10.91659, -12.10261, 13.39398],
       initialCameraLookAt: [-0.46246, -2.24977, -1.86982],
@@ -175,6 +177,7 @@ const scenes = {
     featured: false,
     order: 6,
     splatPath: 'assets/data/statue3.splat',
+    tags: ['艺术', '雕塑', '室内'],
     camera: {
       initialCameraPosition: [9.29481, -8.13224, -5.60735],
       initialCameraLookAt: [-0.48946, -1.28182, 2.11262],
@@ -186,14 +189,35 @@ const scenes = {
       }
     }
   },
-  remote_town: {
+  town53: {
     id: 'town53',
     author: '@Fregettia',
     image: 'assets/images/town53.png',
     video: 'assets/videos/town.mov',
     featured: true,
     order: 7,
-    externalUrl: 'https://scenes.data-clouds.com/'
+    tags: ['建筑', '城市', '户外'],
+    externalUrl: 'https://scenes.data-clouds.com/scene1/index.htm'
+  },
+  kiln: {
+    id: 'kiln',
+    author: '@Fregettia',
+    image: 'assets/images/kiln.png',
+    video: 'assets/videos/town.mov',
+    featured: true,
+    order: 8,
+    tags: ['建筑', '城市', '户外'],
+    externalUrl: 'https://scenes.data-clouds.com/scene2/index.htm'
+  },
+  temple1: {
+    id: 'temple1',
+    author: '@Fregettia',
+    image: 'assets/images/temple1.png',
+    video: 'assets/videos/town.mov',
+    featured: true,
+    order: 9,
+    tags: ['建筑', '城市', '户外'],
+    externalUrl: 'https://scenes.data-clouds.com/scene3/index.htm'
   },
 };
 
@@ -213,22 +237,46 @@ const SceneManager = {
     return scenes[id];
   },
 
+  getAllTags() {
+    const tagSet = new Set();
+    Object.values(scenes).forEach(scene => {
+      if (scene.tags) {
+        scene.tags.forEach(tag => tagSet.add(tag));
+      }
+    });
+    return Array.from(tagSet).sort();
+  },
+
+  getScenesByTag(tag) {
+    return Object.values(scenes)
+      .filter(scene => scene.tags && scene.tags.includes(tag))
+      .sort((a, b) => a.order - b.order);
+  },
+
   renderSceneCard(scene) {
     const clickHandler = scene.externalUrl 
       ? `window.open('${scene.externalUrl}', '_blank')` 
       : `window.open('scene.html?scene=${scene.id}', '_blank')`;
 
+    const sceneTitle = i18n.t(`scene.${scene.id}`);
+    const sceneDescription = i18n.t(`scene.descriptions.${scene.id}`, { defaultValue: '' });
+    const descriptionHtml = sceneDescription ? 
+      `<p class="text-sm text-gray-600 mt-2">${sceneDescription}</p>` : '';
+
     return `
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer" onclick="${clickHandler}">
         <div class="media-container">
-          <img src="${scene.image}" alt="${scene.id} Scene" class="card-image">
+          <img src="${scene.image}" alt="${sceneTitle}" class="card-image">
           <video class="card-video" muted loop playsinline preload="auto">
             <source src="${scene.video}" type="video/quicktime">
           </video>
         </div>
         <div class="p-4 sm:p-6">
-          <h3 class="text-lg sm:text-xl font-semibold text-apple-text mb-2" data-i18n="scene.${scene.id}">${scene.id}</h3>
+          <h3 class="text-lg sm:text-xl font-semibold text-apple-text mb-2">${sceneTitle}</h3>
           <p class="text-sm text-gray-500">${scene.author}</p>
+          ${scene.tags ? `<div class="mt-2 flex flex-wrap gap-2">
+            ${scene.tags.map(tag => `<span class="text-xs px-2 py-1 bg-gray-100 rounded-full">${tag}</span>`).join('')}
+          </div>` : ''}
         </div>
       </div>
     `;
@@ -321,11 +369,28 @@ const SceneManager = {
     });
   },
 
-  renderSceneGrid(containerId, featured = false) {
+  searchScenes(query) {
+    query = query.toLowerCase();
+    return Object.values(scenes).filter(scene => {
+      const matchTitle = scene.id.toLowerCase().includes(query);
+      const matchAuthor = scene.author.toLowerCase().includes(query);
+      const matchTags = scene.tags ? scene.tags.some(tag => tag.toLowerCase().includes(query)) : false;
+      // 添加中文名称搜索支持
+      const chineseName = translations['zh-CN'].scene[scene.id];
+      const matchChineseName = chineseName ? chineseName.toLowerCase().includes(query) : false;
+      return matchTitle || matchAuthor || matchTags || matchChineseName;
+    });
+  },
+
+  renderSceneGrid(containerId, searchQuery = '', selectedTag = null) {
     const container = document.getElementById(containerId);
     if (!container) return;
 
-    const scenesToRender = featured ? this.getFeaturedScenes() : this.getAllScenes();
+    let scenesToRender = searchQuery ? this.searchScenes(searchQuery) : this.getAllScenes();
+    if (selectedTag && selectedTag !== 'all') {
+      scenesToRender = scenesToRender.filter(scene => scene.tags && scene.tags.includes(selectedTag));
+    }
+    scenesToRender.sort((a, b) => a.order - b.order);
     container.innerHTML = scenesToRender.map(scene => this.renderSceneCard(scene)).join('');
     
     // Initialize video hover effects after rendering

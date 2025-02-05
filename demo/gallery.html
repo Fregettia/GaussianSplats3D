@@ -6,6 +6,9 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>3D Gaussian Splats | Gallery</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/translations.js"></script>
+  <script src="js/i18n.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -44,76 +47,22 @@
         @apply opacity-100 scale-100;
       }
 
-      /* Mobile touch support */
-      @media (hover: none) {
-        .media-container:active .card-image {
-          @apply opacity-0 scale-105;
-        }
-
-        .media-container:active .card-video {
-          @apply opacity-100 scale-100;
-        }
+      .tag-filter {
+        @apply px-3 py-1 rounded-full text-sm cursor-pointer transition-colors;
       }
-    }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: scale(1.02);
+      .tag-filter.active {
+        @apply bg-apple-link text-white;
       }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
 
-    @keyframes fadeOut {
-      from {
-        opacity: 1;
-        transform: scale(1);
+      .tag-filter:not(.active) {
+        @apply bg-gray-100 hover:bg-gray-200;
       }
-      to {
-        opacity: 0;
-        transform: scale(1.05);
-      }
-    }
-
-    .fade-in {
-      animation: fadeIn 1s ease-in-out forwards;
-    }
-
-    .fade-out {
-      animation: fadeOut 1s ease-in-out forwards;
     }
   </style>
-  <script>
-    function openDemo(page, params) {
-      let url = page + '.html';
-      if (params && params.length > 0) {
-        let index = 0;
-        for (let param of params) {
-          url += (index === 0 ? "?" : "&");
-          url += param[0] + "=" + param[1];
-          index++;
-        }
-      }
-      window.location = url;
-    }
-  </script>
-  <script type="importmap">
-    {
-        "imports": {
-            "three": "./lib/three.module.js",
-            "gaussian-splats-3d": "./lib/gaussian-splats-3d.module.js"
-        }
-    }
-  </script>
-  <script src="js/translations.js"></script>
-  <script src="js/scenes.js"></script>
-  <script src="js/i18n.js"></script>
 </head>
 
-<body class="bg-apple-gray font-sf-pro min-h-screen">
+<body class="bg-apple-gray font-sf-pro">
   <!-- Navigation -->
   <nav class="bg-[rgba(255,255,255,0.8)] backdrop-blur-xl fixed w-full z-50 border-b border-gray-200">
     <div class="max-w-[980px] mx-auto px-4 sm:px-6 h-14 sm:h-12 flex items-center justify-between">
@@ -158,33 +107,77 @@
     </div>
   </nav>
 
-  <!-- Main Content -->
-  <main class="pt-20 sm:pt-24 pb-16">
-    <div class="max-w-[980px] mx-auto px-4 sm:px-6">
-      <!-- Gallery Header -->
-      <section class="mb-8 sm:mb-12">
-        <h1 class="text-[32px] sm:text-[40px] font-semibold text-apple-text leading-tight mb-2" data-i18n="gallery.title">
-          3D Scene Gallery
-        </h1>
-        <div class="text-lg sm:text-[21px] text-gray-600 leading-relaxed" data-i18n="gallery.subtitle">
-          Explore our collection of stunning 3D Gaussian Splat scenes
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-24">
+    
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-4xl font-bold text-apple-text" data-i18n="gallery.title">场景展示</h1>
+      <div class="relative">
+        <input
+          type="text"
+          id="scene-search"
+          class="w-64 px-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-apple-link"
+          placeholder="搜索场景..."
+        />
+      </div>
+    </div>
+    
+    <div class="flex flex-col-reverse md:flex-row gap-8">
+      <!-- 场景网格 -->
+      <div class="flex-grow">
+        <div id="scene-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         </div>
-      </section>
+      </div>
 
-      <!-- Gallery Grid -->
-      <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-        <!-- Scene cards will be dynamically inserted here -->
+      <!-- 标签筛选器 -->
+      <div class="md:w-48 shrink-0">
+        <div id="tag-filters" class="flex flex-wrap md:flex-col gap-2">
+          <span class="tag-filter active" data-tag="all">全部</span>
+        </div>
       </div>
     </div>
-  </main>
+  </div>
 
-  <!-- Footer -->
-  <footer class="border-t border-gray-200 bg-white mt-auto">
-    <div class="max-w-[980px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
-      <div class="text-xs sm:text-sm text-gray-500">
-        Copyright © 2024 3D Gaussian Splats. All rights reserved.
-      </div>
-    </div>
-  </footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 初始化搜索框
+      const searchInput = document.getElementById('scene-search');
+      searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        const activeTag = document.querySelector('.tag-filter.active').getAttribute('data-tag');
+        SceneManager.renderSceneGrid('scene-grid', searchTerm, activeTag === 'all' ? null : activeTag);
+      });
+
+      // 初始化标签筛选器
+      const tagFilters = document.getElementById('tag-filters');
+      const allTags = SceneManager.getAllTags();
+      
+      // 添加标签按钮
+      allTags.forEach(tag => {
+        const tagButton = document.createElement('span');
+        tagButton.className = 'tag-filter';
+        tagButton.setAttribute('data-tag', tag);
+        tagButton.textContent = tag;
+        tagFilters.appendChild(tagButton);
+      });
+
+      // 标签点击事件处理
+      let currentTag = 'all';
+      tagFilters.addEventListener('click', (e) => {
+        if (e.target.classList.contains('tag-filter')) {
+          // 更新标签状态
+          document.querySelectorAll('.tag-filter').forEach(btn => btn.classList.remove('active'));
+          e.target.classList.add('active');
+          
+          // 更新当前标签并重新渲染场景
+          currentTag = e.target.getAttribute('data-tag');
+          const searchTerm = searchInput.value.toLowerCase();
+          SceneManager.renderSceneGrid('scene-grid', searchTerm, currentTag === 'all' ? null : currentTag);
+        }
+      });
+
+      // 初始渲染所有场景
+      SceneManager.renderSceneGrid('scene-grid');
+    });
+  </script>
 </body>
-</html> 
+</html>
