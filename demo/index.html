@@ -33,60 +33,60 @@
     }
 
     // Handle video hover effects
-    document.addEventListener('DOMContentLoaded', function() {
-      const mediaContainers = document.querySelectorAll('.media-container');
+  //   document.addEventListener('DOMContentLoaded', function() {
+  //     const mediaContainers = document.querySelectorAll('.media-container');
       
-      mediaContainers.forEach(container => {
-        const video = container.querySelector('video');
-        const image = container.querySelector('img');
-        let fadeTimeout;
-        let playPromise;
-        let isHovering = false;
+  //     mediaContainers.forEach(container => {
+  //       const video = container.querySelector('video');
+  //       const image = container.querySelector('img');
+  //       let fadeTimeout;
+  //       let playPromise;
+  //       let isHovering = false;
         
-        container.addEventListener('mouseenter', () => {
-          if (video) {
-            isHovering = true;
-            clearTimeout(fadeTimeout);
+  //       container.addEventListener('mouseenter', () => {
+  //         if (video) {
+  //           isHovering = true;
+  //           clearTimeout(fadeTimeout);
             
-            // If there's a pending play promise, wait for it
-            if (playPromise) {
-              playPromise
-                .then(() => {
-                  if (isHovering) {
-                    video.currentTime = 0;
-                    playPromise = video.play();
-                  }
-                })
-                .catch(() => {
-                  // Ignore AbortError, it's expected during rapid hover
-                });
-            } else {
-              video.currentTime = 0;
-              playPromise = video.play();
-            }
-          }
-        });
+  //           // If there's a pending play promise, wait for it
+  //           if (playPromise) {
+  //             playPromise
+  //               .then(() => {
+  //                 if (isHovering) {
+  //                   video.currentTime = 0;
+  //                   playPromise = video.play();
+  //                 }
+  //               })
+  //               .catch(() => {
+  //                 // Ignore AbortError, it's expected during rapid hover
+  //               });
+  //           } else {
+  //             video.currentTime = 0;
+  //             playPromise = video.play();
+  //           }
+  //         }
+  //       });
         
-        container.addEventListener('mouseleave', () => {
-          if (video) {
-            isHovering = false;
-            // Set timeout to pause video after fade out
-            fadeTimeout = setTimeout(() => {
-              if (!isHovering && video.played.length > 0) {
-                const pausePromise = video.pause();
-                if (pausePromise !== undefined) {
-                  pausePromise.catch(() => {
-                    // Ignore pause errors
-                  });
-                }
-                video.currentTime = 0;
-              }
-            }, 300); // Shorter duration for better responsiveness
-          }
-        });
-      });
-    });
-  </script>
+  //       container.addEventListener('mouseleave', () => {
+  //         if (video) {
+  //           isHovering = false;
+  //           // Set timeout to pause video after fade out
+  //           fadeTimeout = setTimeout(() => {
+  //             if (!isHovering && video.played.length > 0) {
+  //               const pausePromise = video.pause();
+  //               if (pausePromise !== undefined) {
+  //                 pausePromise.catch(() => {
+  //                   // Ignore pause errors
+  //                 });
+  //               }
+  //               video.currentTime = 0;
+  //             }
+  //           }, 300); // Shorter duration for better responsiveness
+  //         }
+  //       });
+  //     });
+  //   });
+  // </script>
 </head>
 
 <body class="bg-apple-gray font-sf-pro min-h-screen">

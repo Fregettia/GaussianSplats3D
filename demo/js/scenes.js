@@ -282,92 +282,92 @@ const SceneManager = {
     `;
   },
 
-  setupVideoHoverEffects() {
-    const mediaContainers = document.querySelectorAll('.media-container');
+  // setupVideoHoverEffects() {
+  //   const mediaContainers = document.querySelectorAll('.media-container');
     
-    mediaContainers.forEach(container => {
-      const video = container.querySelector('video');
-      const image = container.querySelector('img');
-      let isHovering = false;
-      let currentPlayPromise = null;
+  //   mediaContainers.forEach(container => {
+  //     const video = container.querySelector('video');
+  //     const image = container.querySelector('img');
+  //     let isHovering = false;
+  //     let currentPlayPromise = null;
       
-      if (video) {
-        // Ensure video is muted and preloaded
-        video.muted = true;
-        video.preload = "auto";
-        // Load the video initially
-        video.load();
-      }
+  //     if (video) {
+  //       // Ensure video is muted and preloaded
+  //       video.muted = true;
+  //       video.preload = "auto";
+  //       // Load the video initially
+  //       video.load();
+  //     }
       
-      container.addEventListener('mouseenter', () => {
-        if (!video) return;
-        isHovering = true;
+  //     container.addEventListener('mouseenter', () => {
+  //       if (!video) return;
+  //       isHovering = true;
         
-        // Show video and hide image immediately
-        video.style.opacity = '1';
-        image.style.opacity = '0';
+  //       // Show video and hide image immediately
+  //       video.style.opacity = '1';
+  //       image.style.opacity = '0';
         
-        // If there's an existing play promise, wait for it to resolve/reject
-        if (currentPlayPromise) {
-          currentPlayPromise
-            .then(() => {
-              // Previous play completed, start new playback
-              startPlayback();
-            })
-            .catch(() => {
-              // Previous play failed, try again
-              startPlayback();
-            });
-        } else {
-          startPlayback();
-        }
+  //       // If there's an existing play promise, wait for it to resolve/reject
+  //       if (currentPlayPromise) {
+  //         currentPlayPromise
+  //           .then(() => {
+  //             // Previous play completed, start new playback
+  //             startPlayback();
+  //           })
+  //           .catch(() => {
+  //             // Previous play failed, try again
+  //             startPlayback();
+  //           });
+  //       } else {
+  //         startPlayback();
+  //       }
         
-        function startPlayback() {
-          if (!isHovering) return;
+  //       function startPlayback() {
+  //         if (!isHovering) return;
           
-          video.currentTime = 0;
-          currentPlayPromise = video.play();
+  //         video.currentTime = 0;
+  //         currentPlayPromise = video.play();
           
-          if (currentPlayPromise !== undefined) {
-            currentPlayPromise
-              .catch(error => {
-                if (error.name === "NotAllowedError") {
-                  // Auto-play was prevented, show paused state
-                  video.style.opacity = '0';
-                  image.style.opacity = '1';
-                }
-              });
-          }
-        }
-      });
+  //         if (currentPlayPromise !== undefined) {
+  //           currentPlayPromise
+  //             .catch(error => {
+  //               if (error.name === "NotAllowedError") {
+  //                 // Auto-play was prevented, show paused state
+  //                 video.style.opacity = '0';
+  //                 image.style.opacity = '1';
+  //               }
+  //             });
+  //         }
+  //       }
+  //     });
       
-      container.addEventListener('mouseleave', () => {
-        if (!video) return;
-        isHovering = false;
+  //     container.addEventListener('mouseleave', () => {
+  //       if (!video) return;
+  //       isHovering = false;
         
-        // Show image and hide video immediately
-        video.style.opacity = '0';
-        image.style.opacity = '1';
+  //       // Show image and hide video immediately
+  //       video.style.opacity = '0';
+  //       image.style.opacity = '1';
         
-        // If there's a current play promise, wait for it before pausing
-        if (currentPlayPromise !== undefined) {
-          currentPlayPromise
-            .then(() => {
-              if (!isHovering) {
-                video.pause();
-                video.currentTime = 0;
-              }
-            })
-            .catch(() => {
-              // Play was already interrupted, no need to pause
-            });
-        } else {
-          video.pause();
-          video.currentTime = 0;
-        }
-      });
-    });
-  },
+  //       // If there's a current play promise, wait for it before pausing
+  //       if (currentPlayPromise !== undefined) {
+  //         currentPlayPromise
+  //           .then(() => {
+  //             if (!isHovering) {
+  //               video.pause();
+  //               video.currentTime = 0;
+  //             }
+  //           })
+  //           .catch(() => {
+  //             // Play was already interrupted, no need to pause
+  //           });
+  //       } else {
+  //         video.pause();
+  //         video.currentTime = 0;
+  //       }
+  //     });
+  //   });
+  // },
 
   searchScenes(query) {
     query = query.toLowerCase();
@@ -394,6 +394,6 @@ const SceneManager = {
     container.innerHTML = scenesToRender.map(scene => this.renderSceneCard(scene)).join('');
     
     // Initialize video hover effects after rendering
-    this.setupVideoHoverEffects();
+    // this.setupVideoHoverEffects();
   }
 };

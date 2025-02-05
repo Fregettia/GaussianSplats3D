@@ -4,21 +4,39 @@
 
 @layer components {
   .media-container {
-    @apply relative w-full h-48 sm:h-56 md:h-48 lg:h-56;
+    @apply relative w-full h-48 sm:h-56;
   }
 
   .card-image {
-    @apply w-full h-full object-cover absolute top-0 left-0;
-    transition: opacity 0.2s ease-in-out;
+    @apply w-full h-full object-cover transition-all duration-1000 ease-in-out;
   }
 
   .card-video {
-    @apply absolute top-0 left-0 w-full h-full object-cover opacity-0;
-    transition: opacity 0.2s ease-in-out;
+    @apply absolute top-0 left-0 w-full h-full object-cover opacity-0 transition-all duration-1000 ease-in-out scale-[1.02];
+  }
+
+  .media-container:hover .card-image {
+    @apply  scale-105;
+  }
+
+  /* .media-container:hover .card-video {
+    @apply opacity-100 scale-100;
+  } */
+
+  .tag-filter {
+    @apply px-3 py-1 rounded-full text-sm cursor-pointer transition-colors;
+  }
+
+  .tag-filter.active {
+    @apply bg-apple-link text-white;
+  }
+
+  .tag-filter:not(.active) {
+    @apply bg-gray-100 hover:bg-gray-200;
   }
 }
 
-@keyframes fadeIn {
+/* @keyframes fadeIn {
   from {
     opacity: 0;
     transform: scale(1.02);
@@ -46,4 +64,4 @@
 
 .fade-out {
   animation: fadeOut 1s ease-in-out forwards;
-} 
+}  */
