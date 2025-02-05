@@ -186,6 +186,15 @@ const scenes = {
       }
     }
   },
+  remote_town: {
+    id: 'town53',
+    author: '@Fregettia',
+    image: 'assets/images/town53.png',
+    video: 'assets/videos/town.mov',
+    featured: true,
+    order: 7,
+    externalUrl: 'https://scenes.data-clouds.com/'
+  },
 };
 
 // Helper functions for scene management
@@ -205,8 +214,12 @@ const SceneManager = {
   },
 
   renderSceneCard(scene) {
+    const clickHandler = scene.externalUrl 
+      ? `window.open('${scene.externalUrl}', '_blank')` 
+      : `window.open('scene.html?scene=${scene.id}', '_blank')`;
+
     return `
-      <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer" onclick="window.open('scene.html?scene=${scene.id}', '_blank')">
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow cursor-pointer" onclick="${clickHandler}">
         <div class="media-container">
           <img src="${scene.image}" alt="${scene.id} Scene" class="card-image">
           <video class="card-video" muted loop playsinline preload="auto">
@@ -318,4 +331,4 @@ const SceneManager = {
     // Initialize video hover effects after rendering
     this.setupVideoHoverEffects();
   }
-}; 
+};
