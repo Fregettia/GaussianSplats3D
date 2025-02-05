@@ -219,6 +219,50 @@ const scenes = {
     tags: ['建筑', '城市', '户外'],
     externalUrl: 'https://scenes.data-clouds.com/scene3/index.htm'
   },
+  //寒贞村K51Publish
+  K51Publish: {
+    id: 'K51Publish',
+    author: '@Fregettia',
+    image: 'assets/images/K51Publish.webp',
+    video: 'assets/videos/K51Publish.mov',
+    featured: false,
+    order: 10,
+    tags: ['建筑', '城市', '户外'],
+    externalUrl: 'https://scenes.data-clouds.com/寒贞村K51Publish/index.htm'
+  },
+  // 金粟庵K48PublishA
+  K48PublishA: {
+    id: 'K48PublishA',
+    author: '@Fregettia',
+    image: 'assets/images/K48PublishA.webp',
+    video: 'assets/videos/K48PublishA.mov',
+    featured: false,
+    order: 11,
+    tags: ['建筑', '城市', '户外'],
+    externalUrl: 'https://scenes.data-clouds.com/金粟庵K48PublishA/index.htm'
+  },
+  //锦溪K59_K60Publish
+  K59_K60Publish: {
+    id: 'K59_K60Publish',
+    author: '@Fregettia',
+    image: 'assets/images/K59_K60Publish.jpg',
+    video: 'assets/videos/K59_K60Publish.mov',
+    featured: false,
+    order: 12,
+    tags: ['建筑', '城市', '户外'],
+    externalUrl: 'https://scenes.data-clouds.com/锦溪K59_K60Publish/index.htm'
+  },
+  //唐村K65Publish
+  K65Publish: {
+    id: 'K65Publish',
+    author: '@Fregettia',
+    image: 'assets/images/K65Publish.webp',
+    video: 'assets/videos/K65Publish.mov',
+    featured: false,
+    order: 13,
+    tags: ['建筑', '城市', '户外'],
+    externalUrl: 'https://scenes.data-clouds.com/唐村K65Publish/index.htm'
+  },
 };
 
 // Helper functions for scene management
