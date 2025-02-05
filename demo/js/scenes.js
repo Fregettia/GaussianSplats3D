@@ -263,6 +263,17 @@ const scenes = {
     tags: ['建筑', '城市', '户外'],
     externalUrl: 'https://scenes.data-clouds.com/唐村K65Publish/index.htm'
   },
+  //金鸡湖全景2501
+  para_jinji_2501: {
+    id: 'para_jinji_2501',
+    author: '@Fregettia',
+    image: 'assets/images/para-jinji-2501.jpg',
+    video: 'assets/videos/2501.mov',
+    featured: false,
+    order: 14,
+    tags: ['全景', '城市', '户外'],
+    externalUrl: 'https://scenes.data-clouds.com/金鸡湖全景2501/index.htm'
+  },
 };
 
 // Helper functions for scene management
